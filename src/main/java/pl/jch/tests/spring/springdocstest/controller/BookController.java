@@ -2,6 +2,8 @@ package pl.jch.tests.spring.springdocstest.controller;
 
 import java.util.Collection;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,5 +42,10 @@ public class BookController {
     public Book updateBook(@PathVariable String id, @RequestBody Book book) {
         this.bookRepository.add(book);
         return book;
+    }
+
+    @GetMapping("/filter")
+    public Page<Book> filterBooks(Pageable pageable) {
+        return this.bookRepository.getBooks(pageable);
     }
 }
